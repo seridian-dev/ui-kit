@@ -13,7 +13,7 @@ import { ToasterProps } from 'sonner';
 declare function cn(...inputs: ClassValue[]): string;
 
 declare const alertVariants: (props?: ({
-    variant?: "default" | "destructive" | null | undefined;
+    variant?: "default" | "destructive" | "warning" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 declare function Alert({ className, variant, ...props }: React$1.ComponentProps<"div"> & VariantProps<typeof alertVariants>): React$1.JSX.Element;
 declare function AlertTitle({ className, ...props }: React$1.ComponentProps<"div">): React$1.JSX.Element;
@@ -75,7 +75,7 @@ declare function AvatarGroup({ className, ...props }: React$1.ComponentProps<"di
 declare function AvatarGroupCount({ className, ...props }: React$1.ComponentProps<"div">): React$1.JSX.Element;
 
 declare const badgeVariants: (props?: ({
-    variant?: "default" | "destructive" | "link" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "default" | "destructive" | "warning" | "link" | "outline" | "secondary" | "ghost" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 declare function Badge({ className, variant, asChild, ...props }: React$1.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
