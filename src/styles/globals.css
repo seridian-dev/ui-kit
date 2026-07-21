@@ -281,3 +281,64 @@
     @apply font-sans;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Magic UI keyframes — github.com/magicuidesign/magicui (MIT)
+ *
+ * Copied verbatim from each component's own registry entry (the `cssVars`/
+ * `css` blocks in apps/www/public/r/<component>.json), fetched directly from
+ * the real registry rather than reconstructed:
+ *   https://raw.githubusercontent.com/magicuidesign/magicui/main/apps/www/public/r/marquee.json
+ *   https://raw.githubusercontent.com/magicuidesign/magicui/main/apps/www/public/r/shimmer-button.json
+ *
+ * Tailwind v4's `@theme` block is how custom `--animate-*` utilities (used
+ * as `animate-marquee` etc. in marquee.tsx / shimmer-button.tsx) get wired
+ * to their `@keyframes`.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+  }
+}
+
+@keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0deg);
+  }
+  15%,
+  35% {
+    transform: translateZ(0) rotate(90deg);
+  }
+  65%,
+  85% {
+    transform: translateZ(0) rotate(270deg);
+  }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+  }
+}

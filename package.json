@@ -1,7 +1,7 @@
 {
   "name": "@bytecats/ui-kit",
-  "version": "0.1.0",
-  "description": "Bytecats shared React component library — shadcn/ui primitives themed with Meta Astryx's verified design tokens. One kit, many bytecats products.",
+  "version": "0.2.0",
+  "description": "Bytecats shared React component library — shadcn/ui primitives themed with Meta Astryx's verified design tokens, plus a curated set of Magic UI animated components. One kit, many bytecats products.",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
@@ -37,15 +37,22 @@
     "react-dom": ">=18"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "date-fns": "^4.4.0",
     "lucide-react": "^1.25.0",
+    "motion": "^12.42.2",
     "radix-ui": "^1.6.4",
+    "react-day-picker": "^10.0.1",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4",
     "@types/bun": "latest",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "react": "^19",
@@ -71,6 +78,7 @@
     "shadcn",
     "tailwindcss",
     "design-system",
-    "astryx"
+    "astryx",
+    "magic-ui"
   ]
 }

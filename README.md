@@ -3,7 +3,7 @@
 A shared React component library for bytecats' small products — one kit,
 many repos, instead of re-solving buttons and dialogs in every new app.
 
-It combines two upstream open-source projects:
+It combines three upstream open-source projects:
 
 - **[shadcn/ui](https://ui.shadcn.com)** (MIT) — the component layer: accessible
   Radix-based primitives, composed as plain, ownable React + Tailwind source
@@ -11,6 +11,11 @@ It combines two upstream open-source projects:
 - **[Astryx](https://github.com/facebook/astryx)** (MIT, Meta Platforms, Inc.) —
   the design-token layer: verified color, radius, and typography values
   pulled from Astryx's real published theme packages.
+- **[Magic UI](https://magicui.design)** (MIT,
+  [magicuidesign/magicui](https://github.com/magicuidesign/magicui)) — a
+  small, curated set of animated components (marquee, shimmer button,
+  animated beam, ...) layered on top of the same shadcn/ui + Tailwind
+  conventions, animated with [Motion](https://motion.dev).
 
 Astryx itself is a React + [StyleX](https://stylexjs.com) design system —
 this kit does **not** install the `astryx` package or run StyleX at runtime.
@@ -81,20 +86,51 @@ See [`src/demo.tsx`](./src/demo.tsx) for a slightly larger example.
 ## Components included
 
 A curated general-purpose set — not shadcn's full catalog, not Astryx's
-150+ components. These are the primitives nearly every small product repo
-ends up needing:
+150+ components, not Magic UI's 150+ effects. These are the primitives
+nearly every small product repo ends up needing, plus a small set of
+genuinely common gaps against Astryx's real catalog and a handful of
+well-adapted Magic UI effects.
 
-`Alert`, `Avatar`, `Badge`, `Button`, `Card`, `Checkbox`, `Dialog`,
-`DropdownMenu`, `Input`, `Label`, `RadioGroup`, `Select`, `Separator`,
-`Skeleton`, `Switch`, `Table`, `Tabs`, `Textarea`, `Tooltip`.
+**Core (shadcn/ui + Astryx tokens):**
+`Alert`, `AlertDialog`, `Avatar`, `Badge`, `Breadcrumb`, `Button`, `Calendar`,
+`Card`, `Checkbox`, `Collapsible`, `Command`, `Dialog`, `DropdownMenu`,
+`HoverCard`, `Input`, `InputGroup`, `Label`, `Pagination`, `Popover`,
+`Progress`, `RadioGroup`, `Select`, `Separator`, `Skeleton`, `Slider`,
+`Toaster` (Sonner), `Switch`, `Table`, `Tabs`, `Textarea`, `Tooltip`.
+
+**Hand-built (no shadcn equivalent; API design referenced Astryx's own
+components — see source comments for exact files cited):**
+`EmptyState`, `Kbd`/`KbdGroup`, `SegmentedControl`/`SegmentedControlItem`.
+
+**Magic UI (animated components, see "Magic UI" below):**
+`AnimatedBeam`, `BentoGrid`/`BentoCard`, `BorderBeam`, `Confetti`/
+`ConfettiButton`, `Marquee`, `NumberTicker`, `ShimmerButton`.
 
 Deliberately left out for now: anything more app-shell-shaped (sidebar,
-command palette, data-heavy chart/table widgets, forms-library bindings) —
-those are product-specific enough that pulling them in here would bias the
-kit toward one app's opinions. Add them with the shadcn CLI as a specific
-product needs them (see "Adding more components" below); they'll pick up
-this kit's Astryx theming automatically since they share the same CSS
-variables.
+data-heavy chart/table widgets, forms-library bindings) — those are
+product-specific enough that pulling them in here would bias the kit toward
+one app's opinions. Add them with the shadcn CLI as a specific product needs
+them (see "Adding more components" below); they'll pick up this kit's
+Astryx theming automatically since they share the same CSS variables.
+
+## Magic UI
+
+A small, curated slice of [Magic UI](https://github.com/magicuidesign/magicui)
+(MIT) — not all 150+ of its components, just the handful that are broadly
+useful in a general-purpose product kit rather than landing-page-specific:
+`Marquee`, `ShimmerButton`, `AnimatedBeam`, `BentoGrid`, `NumberTicker`,
+`BorderBeam`, `Confetti`. Each was pulled from Magic UI's real registry
+source (not reconstructed from docs) and adapted to this kit's conventions
+— `cn()`, `data-slot` attributes, and Astryx theme CSS variables in place of
+Magic UI's hardcoded colors where the component has themeable colors. See
+the attribution comment at the top of each component file in
+`src/components/ui/` for the exact upstream URL fetched.
+
+These components pull in [`motion`](https://motion.dev) (the current
+`framer-motion` successor package — the real Magic UI source imports from
+`motion/react`, confirmed by reading it directly rather than assumed) and,
+for `Confetti`, `canvas-confetti`. Both are real runtime dependencies of
+this kit now, unlike the rest of the component set.
 
 ## Theming & dark mode
 
@@ -182,9 +218,21 @@ them.
   [Meta's Astryx design system](https://github.com/facebook/astryx) (MIT,
   Copyright (c) 2026 Meta Platforms, Inc.), specifically the
   `@astryxdesign/theme-neutral` and `@astryxdesign/theme-stone` npm
-  packages.
+  packages. `EmptyState`, `Kbd`/`KbdGroup`, and
+  `SegmentedControl`/`SegmentedControlItem` have no shadcn equivalent and
+  were hand-built for this kit; their prop shapes were informed by reading
+  Astryx's own component source for the same components (cited in each
+  file's header comment), not copied — Astryx ships those as React +
+  StyleX, this kit ships them as plain Tailwind components.
+- `AnimatedBeam`, `BentoGrid`/`BentoCard`, `BorderBeam`, `Confetti`/
+  `ConfettiButton`, `Marquee`, `NumberTicker`, and `ShimmerButton` in
+  `src/components/ui/` are adapted from
+  [Magic UI](https://github.com/magicuidesign/magicui) (MIT), pulled
+  directly from its real registry source and re-themed to this kit's
+  Astryx CSS variables (see "Magic UI" above and each file's header
+  comment for the exact upstream source fetched).
 
-This project is not affiliated with or endorsed by shadcn or Meta.
+This project is not affiliated with or endorsed by shadcn, Meta, or Magic UI.
 
 ## License
 

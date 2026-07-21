@@ -22,7 +22,7 @@ SOFTWARE.
 
 ---
 
-This package incorporates and builds on two upstream MIT-licensed projects:
+This package incorporates and builds on three upstream MIT-licensed projects:
 
 - shadcn/ui — Copyright (c) 2023 shadcn — https://ui.shadcn.com
   Component source (src/components/ui/*.tsx) is generated from and derived
@@ -32,5 +32,10 @@ This package incorporates and builds on two upstream MIT-licensed projects:
   Design tokens (colors, radius, font families) in src/styles/globals.css are
   sourced from the published @astryxdesign/theme-neutral and
   @astryxdesign/theme-stone npm packages.
+
+- Magic UI — https://github.com/magicuidesign/magicui
+  A curated set of animated components (animated-beam.tsx, bento-grid.tsx,
+  border-beam.tsx, confetti.tsx, marquee.tsx, number-ticker.tsx,
+  shimmer-button.tsx) are adapted from the Magic UI registry.
 
 See README.md for full attribution details.
