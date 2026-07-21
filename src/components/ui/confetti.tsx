@@ -1,3 +1,4 @@
+"use client"
 // Adapted from Magic UI's Confetti (MIT, github.com/magicuidesign/magicui),
 // verified against the real upstream source at
 // https://raw.githubusercontent.com/magicuidesign/magicui/main/apps/www/registry/magicui/confetti.tsx
@@ -11,7 +12,6 @@
 // the `ConfettiButton`; `<ConfettiButton>` renders this kit's own `Button`
 // (already the case upstream — no change needed there, just noting it uses
 // this kit's variant/size props for free).
-"use client"
 
 import type { ReactNode } from "react"
 import React, {

@@ -50,6 +50,7 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@hyperse/esbuild-plugin-preserve-directives": "^1.0.2",
     "@tailwindcss/cli": "^4",
     "@types/bun": "latest",
     "@types/canvas-confetti": "^1.9.0",

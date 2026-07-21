@@ -1,3 +1,4 @@
+"use client"
 // Hand-built (no shadcn equivalent). API design referenced Astryx's real
 // SegmentedControl components for prop-naming/behavior inspiration:
 // https://raw.githubusercontent.com/facebook/astryx/main/packages/core/src/SegmentedControl/SegmentedControl.tsx
@@ -14,7 +15,6 @@
 // `useListFocus` hook (Astryx's version pulls that from its internal hooks
 // package) — small enough to keep self-contained per this kit's "small and
 // simple" bar for hand-built components.
-"use client"
 
 import * as React from "react"
 
