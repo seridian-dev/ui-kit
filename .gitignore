@@ -6,7 +6,7 @@ out
 *.tgz
 
 # NOTE: dist/ is intentionally NOT ignored and IS committed. This package
-# isn't published to npm -- README instructs `bun add github:4cecoder/ui-kit`,
+# isn't published to npm -- README instructs `bun add github:seridian-dev/ui-kit`,
 # a git-based install with no build step, so the compiled output must already
 # be in the repo for consumers to get anything usable.
 

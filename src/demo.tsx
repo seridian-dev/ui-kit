@@ -1,7 +1,7 @@
 // Minimal usage example — not part of the published package (see
 // package.json "files"), just a reference for how a consumer wires things
-// up. Run it yourself with any React setup by importing "@bytecats/ui-kit"
-// and "@bytecats/ui-kit/styles.css" from a real install.
+// up. Run it yourself with any React setup by importing "@seridian/ui-kit"
+// and "@seridian/ui-kit/styles.css" from a real install.
 import * as React from "react";
 
 import { Badge } from "./components/ui/badge";
@@ -29,7 +29,7 @@ export function Demo() {
       <CardContent className="flex flex-col gap-3">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="demo-email">Email</Label>
-          <Input id="demo-email" type="email" placeholder="teammate@bytecats.codes" />
+          <Input id="demo-email" type="email" placeholder="teammate@example.com" />
         </div>
         <Badge variant="secondary">Neutral theme (default)</Badge>
       </CardContent>

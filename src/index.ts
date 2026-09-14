@@ -1,7 +1,7 @@
-// @bytecats/ui-kit
+// @seridian/ui-kit
 //
 // Consumers also need the compiled stylesheet once, at their app root:
-//   import "@bytecats/ui-kit/styles.css";
+//   import "@seridian/ui-kit/styles.css";
 //
 // See README.md for theming (Neutral/Stone) and dark mode notes.
 

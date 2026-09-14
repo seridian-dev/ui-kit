@@ -1,6 +1,6 @@
-# @bytecats/ui-kit
+# @seridian/ui-kit
 
-A shared React component library for bytecats' small products — one kit,
+A shared React component library for Seridian's small products — one kit,
 many repos, instead of re-solving buttons and dialogs in every new app.
 
 It combines three upstream open-source projects:
@@ -50,8 +50,8 @@ you a package with no compiled output.
 ## Usage
 
 ```tsx
-import { Button, Card, CardContent, CardHeader, CardTitle } from "@bytecats/ui-kit";
-import "@bytecats/ui-kit/styles.css"; // once, at your app root
+import { Button, Card, CardContent, CardHeader, CardTitle } from "@seridian/ui-kit";
+import "@seridian/ui-kit/styles.css"; // once, at your app root
 
 function Example() {
   return (

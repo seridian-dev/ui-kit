@@ -1,10 +1,10 @@
 /**
- * @bytecats/ui-kit — theme stylesheet
+ * @seridian/ui-kit — theme stylesheet
  *
  * Compiled by `bun run build:css` (Tailwind v4 CLI) into dist/styles.css.
  * Consumers import the single compiled file:
  *
- *   import "@bytecats/ui-kit/styles.css";
+ *   import "@seridian/ui-kit/styles.css";
  *
  * WHERE THE PIECES COME FROM
  * ---------------------------------------------------------------------------
