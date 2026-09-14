@@ -17,6 +17,13 @@ It combines three upstream open-source projects:
   animated beam, ...) layered on top of the same shadcn/ui + Tailwind
   conventions, animated with [Motion](https://motion.dev).
 
+Alongside those three, fifteen components are clean-room builds: original
+implementations written against the publicly documented behavior of other
+projects' components, with no upstream source viewed or copied — see
+"Clean-room builds" below — and a further set are vendored outright from
+other MIT-licensed component projects, adapted from their real source —
+see "Vendored components" below.
+
 Astryx itself is a React + [StyleX](https://stylexjs.com) design system —
 this kit does **not** install the `astryx` package or run StyleX at runtime.
 Running two live CSS engines (Tailwind + StyleX) in one component library
@@ -82,39 +89,92 @@ See [`src/demo.tsx`](./src/demo.tsx) for a slightly larger example.
 A curated general-purpose set — not shadcn's full catalog, not Astryx's
 150+ components, not Magic UI's 150+ effects. These are the primitives
 nearly every small product repo ends up needing, plus a small set of
-genuinely common gaps against Astryx's real catalog and a handful of
-well-adapted Magic UI effects.
+genuinely common gaps against Astryx's real catalog, a curated set of
+well-adapted Magic UI effects, a set of clean-room builds covering
+gaps other registries have proven people want, and a set vendored
+outright from other MIT-licensed component registries. Grouped by what
+they're for; provenance is marked inline — unmarked means shadcn/ui-derived
+core, *(hand-built)* means no shadcn equivalent exists, *(Magic UI)* means
+an animated component from Magic UI (see "Magic UI" below), and
+*(clean-room)* means an original implementation written against the
+publicly documented behavior of another project's component, with no
+upstream source viewed or copied (see "Clean-room builds" below), and
+*(vendored)* means code adapted from a real upstream MIT project's source,
+with an attribution header in each file citing the exact upstream URL
+fetched (see "Vendored components" below).
 
-**Core (shadcn/ui + Astryx tokens):**
-`Alert`, `AlertDialog`, `Avatar`, `Badge`, `Breadcrumb`, `Button`, `Calendar`,
-`Card`, `Checkbox`, `Collapsible`, `Command`, `Dialog`, `DropdownMenu`,
-`HoverCard`, `Input`, `InputGroup`, `Label`, `Pagination`, `Popover`,
-`Progress`, `RadioGroup`, `Select`, `Separator`, `Skeleton`, `Slider`,
-`Toaster` (Sonner), `Switch`, `Table`, `Tabs`, `Textarea`, `Tooltip`.
+**Actions:**
+`Button`, `Kbd`/`KbdGroup` *(hand-built)*,
+`SegmentedControl`/`SegmentedControlItem` *(hand-built)*, `Toggle`,
+`ToggleGroup`, `Toolbar` *(clean-room)*.
 
-**Hand-built (no shadcn equivalent; API design referenced Astryx's own
-components — see source comments for exact files cited):**
-`EmptyState`, `Kbd`/`KbdGroup`, `SegmentedControl`/`SegmentedControlItem`.
+**Forms & inputs:**
+`Calendar`, `Checkbox`, `ColorPicker` (react-colorful) *(clean-room)*,
+`Combobox` *(clean-room)*, `DatePickerField` *(vendored)*,
+`DateRangePickerField` *(vendored)*, `Dropzone` *(clean-room)*,
+`Editor` (Tiptap) *(clean-room)*, `Input`, `InputGroup`,
+`InputOTP` (input-otp), `Label`, `NumberField` *(clean-room)*,
+`PasswordStrengthInput` *(vendored)*, `RadioGroup`,
+`RatingInput` *(vendored)*, `Select`, `Slider`, `Switch`, `Textarea`.
 
-**Magic UI (animated components, see "Magic UI" below):**
-`AnimatedBeam`, `BentoGrid`/`BentoCard`, `BorderBeam`, `Confetti`/
-`ConfettiButton`, `Marquee`, `NumberTicker`, `ShimmerButton`.
+**Layout & structure:**
+`Accordion`, `BentoGrid`/`BentoCard` *(Magic UI)*, `Card`, `Collapsible`,
+`DirectionAwareTabs` *(vendored)*, `ScrollArea`, `Separator`,
+`SortableList` *(vendored)*, `Table`, `Tabs`, `Tree` *(clean-room)*.
+
+**Overlays & menus:**
+`AlertDialog`, `Command`, `ContextMenu`, `Dialog`, `Drawer` (Vaul),
+`DynamicIsland` *(vendored)*, `DropdownMenu`, `HoverCard`,
+`ImageZoom` *(clean-room)*, `Menubar`, `Popover`, `Sheet`,
+`StickyBanner` *(vendored)*, `Tooltip`.
+
+**Navigation:**
+`Breadcrumb`, `Dock` *(vendored)*, `NavigationMenu`,
+`Onboarding` *(vendored)*, `Pagination`, `Stepper` *(vendored)*.
+
+**Data display:**
+`BrowserMockup` *(vendored)*, `CodeBlock` *(vendored)*,
+`CompareSlider` *(vendored)*, `ContributionGraph` *(clean-room)*,
+`Flag` (flag-icons) *(clean-room)*, `IPhoneMockup` *(vendored)*,
+`QRCode` (qrcode) *(clean-room)*, `Snippet` *(clean-room)*,
+`Terminal` *(vendored)*, `Timeline` *(vendored)*.
+
+**Feedback & status:**
+`Alert`, `AnimatedCircularProgressBar` *(Magic UI)*, `Avatar`,
+`AvatarCircles` *(Magic UI)*, `Badge`, `EmptyState` *(hand-built)*,
+`Meter` *(clean-room)*, `Progress`, `RelativeTime` *(clean-room)*,
+`Skeleton`, `Spinner` *(clean-room)*, `Timer` *(vendored)*,
+`Toaster` (Sonner).
+
+**Motion & effects (all Magic UI):**
+`AnimatedBeam`, `AnimatedGridPattern`, `AnimatedList`, `AnimatedShinyText`,
+`AuroraText`, `BlurFade`, `BorderBeam`, `Confetti`/`ConfettiButton`,
+`DotPattern`, `GridPattern`, `HyperText`, `MagicCard`, `Marquee`, `Meteors`,
+`NumberTicker`, `OrbitingCircles`, `ProgressiveBlur`, `Ripple`,
+`ScrollProgress`, `ShimmerButton`, `TypingAnimation`, `WordRotate`.
 
 Deliberately left out for now: anything more app-shell-shaped (sidebar,
-data-heavy chart/table widgets, forms-library bindings) — those are
-product-specific enough that pulling them in here would bias the kit toward
-one app's opinions. Add them with the shadcn CLI as a specific product needs
-them (see "Adding more components" below); they'll pick up this kit's
-Astryx theming automatically since they share the same CSS variables.
+charts, data-table widgets like TanStack Table, forms-library bindings) —
+the kit has grown considerably, rich-text editor included, but those remain
+product-specific enough that pulling them in here would bias it
+toward one app's opinions. Add them with the shadcn CLI as a specific
+product needs them (see "Adding more components" below); they'll pick up
+this kit's Astryx theming automatically since they share the same CSS
+variables.
 
 ## Magic UI
 
-A small, curated slice of [Magic UI](https://github.com/magicuidesign/magicui)
-(MIT) — not all 150+ of its components, just the handful that are broadly
-useful in a general-purpose product kit rather than landing-page-specific:
-`Marquee`, `ShimmerButton`, `AnimatedBeam`, `BentoGrid`, `NumberTicker`,
-`BorderBeam`, `Confetti`. Each was pulled from Magic UI's real registry
-source (not reconstructed from docs) and adapted to this kit's conventions
+A curated slice of [Magic UI](https://github.com/magicuidesign/magicui)
+(MIT) — not all 150+ of its components, just the ones broadly useful in a
+general-purpose product kit rather than landing-page-specific:
+`AnimatedBeam`, `AnimatedCircularProgressBar`, `AnimatedGridPattern`,
+`AnimatedList`, `AnimatedShinyText`, `AuroraText`, `AvatarCircles`,
+`BentoGrid`/`BentoCard`, `BlurFade`, `BorderBeam`, `Confetti`/
+`ConfettiButton`, `DotPattern`, `GridPattern`, `HyperText`, `MagicCard`,
+`Marquee`, `Meteors`, `NumberTicker`, `OrbitingCircles`, `ProgressiveBlur`,
+`Ripple`, `ScrollProgress`, `ShimmerButton`, `TypingAnimation`,
+`WordRotate`. Each was pulled from Magic UI's real registry source (not
+reconstructed from docs) and adapted to this kit's conventions
 — `cn()`, `data-slot` attributes, and Astryx theme CSS variables in place of
 Magic UI's hardcoded colors where the component has themeable colors. See
 the attribution comment at the top of each component file in
@@ -123,8 +183,90 @@ the attribution comment at the top of each component file in
 These components pull in [`motion`](https://motion.dev) (the current
 `framer-motion` successor package — the real Magic UI source imports from
 `motion/react`, confirmed by reading it directly rather than assumed) and,
-for `Confetti`, `canvas-confetti`. Both are real runtime dependencies of
-this kit now, unlike the rest of the component set.
+for `Confetti`, `canvas-confetti`. On the shadcn side, `Drawer` pulls in
+Vaul and `InputOTP` pulls in `input-otp` — both the shadcn registry's own
+official dependency choices. All of these are real runtime dependencies of
+this kit. The clean-room builds (see below) bring a few more — Tiptap,
+`qrcode`, `react-colorful`, and `flag-icons` — each with its license and
+reasoning described under "Clean-room builds". The vendored components
+(see below) bring two more, both tiny: `react-use-measure` and
+`@radix-ui/react-use-controllable-state` — used by `SortableList`,
+`DirectionAwareTabs`, and `Onboarding`.
+
+## Clean-room builds
+
+Fifteen components in this kit are **clean-room builds**: original
+implementations written against the *publicly documented behavior* of
+another project's component — its props, events, and observable output —
+with no upstream source viewed or copied. The behavior is the
+inspiration; every line of code is written for this kit, on this kit's
+conventions.
+
+Why clean-room instead of lifting source the way the Magic UI components
+were lifted? Upstream licensing varies in both directions. Some projects
+license their code with strings this kit won't accept (Coss UI's successor
+repository is AGPL), and some component registries carry usage
+restrictions that go beyond what their licenses say. Referencing behavior
+is fine; copying source isn't — so only behavior is referenced. Where an
+implementation needed a real engine underneath, the engine is a
+standalone, permissively licensed library:
+
+- `Editor` builds on [Tiptap](https://tiptap.dev) (MIT) — the same engine
+  EditorCN uses — with the toolbar composed from this kit's own
+  primitives rather than anyone's editor chrome.
+- `QRCode` renders through the
+  [`qrcode`](https://github.com/soldair/node-qrcode) package (MIT).
+- `ColorPicker` gets its color math from
+  [react-colorful](https://github.com/omgovich/react-colorful) (MIT).
+- `Flag` wraps the [`flag-icons`](https://flagicons.lipis.dev) CSS package
+  (MIT; flag artwork by Panayiotis Lipiridis), bundled locally into
+  `styles.css` — no runtime CDN requests, unlike Flagcn's approach of
+  pulling flag assets from its CDN at render time.
+
+Which clean-room component took its behavioral cue from where:
+
+- **[Kibo UI](https://www.kibo-ui.com)** — `Tree`, `Dropzone`, `Snippet`,
+  `Spinner`, `RelativeTime`, `QRCode`, `ColorPicker`, `ImageZoom`,
+  `ContributionGraph`.
+- **[Dice UI](https://diceui.com)** — `Combobox` (single- and
+  multi-select, composed on this kit's existing `Command` + `Popover`
+  primitives).
+- **[EditorCN](https://github.com/shadcn-labs/editorcn)** — `Editor`,
+  built directly on Tiptap.
+- **[Flagcn](https://flagcn.dev)** — `Flag`, as a wrapper around
+  `flag-icons`.
+- **[Coss UI](https://coss.com/ui)** — `Meter`, `Toolbar`, `NumberField`
+  (Coss builds on Base UI; this kit's versions are rebuilt on the same
+  Radix primitives as the rest of the kit — inspiration only, no code).
+
+## Vendored components
+
+The other additions to this kit are **vendored** rather than clean-room
+built — the one-line policy difference is that these ARE upstream code:
+pulled from real, MIT-licensed component projects and adapted to this
+kit's conventions, instead of being rewritten from documented behavior
+alone. Every vendored file's header comment cites the exact upstream URL
+fetched, and all three sources were verified MIT by reading their LICENSE
+files directly (not assumed):
+
+- **[Origin UI](https://github.com/shadcn/originui)** (MIT) —
+  `DatePickerField`, `DateRangePickerField`, `PasswordStrengthInput`,
+  `RatingInput`, `Timeline`. Pulled from the frozen MIT `shadcn/originui`
+  fork specifically: Origin UI's live successor at coss.com is
+  AGPL-licensed, which is why the fork — not the live site — is the
+  canonical source for this kit.
+- **[Velora UI](https://github.com/ColorlibHQ/velora-ui)** (MIT,
+  Copyright Aigars Silkalns) — `BrowserMockup`, `CompareSlider`, `Dock`,
+  `IPhoneMockup`, `StickyBanner`, `Stepper`, `Terminal`.
+- **[Cult UI](https://github.com/nolly-studio/cult-ui)** (MIT,
+  Copyright Jordan-Gilliam; `nolly-studio/cult-ui` is the project's sole
+  surviving repository) — `CodeBlock`, `DirectionAwareTabs`,
+  `DynamicIsland`, `Onboarding`, `SortableList`, `Timer`.
+
+Where a source offered something this kit already ships, it was skipped on
+purpose rather than vendored twice: Origin UI's `MultipleSelector` is
+superseded by this kit's `Combobox`, and Cult UI also ships a dock —
+Velora's took that slot.
 
 ## Theming & dark mode
 
@@ -218,15 +360,54 @@ them.
   Astryx's own component source for the same components (cited in each
   file's header comment), not copied — Astryx ships those as React +
   StyleX, this kit ships them as plain Tailwind components.
-- `AnimatedBeam`, `BentoGrid`/`BentoCard`, `BorderBeam`, `Confetti`/
-  `ConfettiButton`, `Marquee`, `NumberTicker`, and `ShimmerButton` in
-  `src/components/ui/` are adapted from
+- The Magic UI components in `src/components/ui/` — `AnimatedBeam`,
+  `AnimatedCircularProgressBar`, `AnimatedGridPattern`, `AnimatedList`,
+  `AnimatedShinyText`, `AuroraText`, `AvatarCircles`, `BentoGrid`/
+  `BentoCard`, `BlurFade`, `BorderBeam`, `Confetti`/`ConfettiButton`,
+  `DotPattern`, `GridPattern`, `HyperText`, `MagicCard`, `Marquee`,
+  `Meteors`, `NumberTicker`, `OrbitingCircles`, `ProgressiveBlur`,
+  `Ripple`, `ScrollProgress`, `ShimmerButton`, `TypingAnimation`,
+  `WordRotate` — are adapted from
   [Magic UI](https://github.com/magicuidesign/magicui) (MIT), pulled
   directly from its real registry source and re-themed to this kit's
   Astryx CSS variables (see "Magic UI" above and each file's header
   comment for the exact upstream source fetched).
+- The clean-room components in `src/components/ui/` — `Tree`, `Dropzone`,
+  `Snippet`, `Spinner`, `RelativeTime`, `QRCode`, `ColorPicker`,
+  `ImageZoom`, and `ContributionGraph` (behavior inspired by
+  [Kibo UI](https://www.kibo-ui.com)); `Combobox`
+  ([Dice UI](https://diceui.com)); `Editor`
+  ([EditorCN](https://github.com/shadcn-labs/editorcn)); `Flag`
+  ([Flagcn](https://flagcn.dev)); and `Meter`, `Toolbar`, and
+  `NumberField` ([Coss UI](https://coss.com/ui)) — are original
+  implementations for this kit, written against the publicly documented
+  behavior of those projects' components. **No upstream source was viewed
+  or copied.** Engine credits: [Tiptap](https://tiptap.dev) (MIT) under
+  `Editor`, [`qrcode`](https://github.com/soldair/node-qrcode) (MIT) under
+  `QRCode`, [react-colorful](https://github.com/omgovich/react-colorful)
+  (MIT) under `ColorPicker`, and
+  [`flag-icons`](https://flagicons.lipis.dev) (MIT, flag artwork by
+  Panayiotis Lipiridis) under `Flag`.
+- The vendored components in `src/components/ui/` — `DatePickerField`,
+  `DateRangePickerField`, `PasswordStrengthInput`, `RatingInput`, and
+  `Timeline` from [Origin UI](https://github.com/shadcn/originui) (MIT,
+  via the frozen MIT `shadcn/originui` fork — the project's live coss.com
+  successor is AGPL, which is why the fork is the canonical source);
+  `BrowserMockup`, `CompareSlider`, `Dock`, `IPhoneMockup`,
+  `StickyBanner`, `Stepper`, and `Terminal` from
+  [Velora UI](https://github.com/ColorlibHQ/velora-ui) (MIT, Copyright
+  Aigars Silkalns); and `CodeBlock`, `DirectionAwareTabs`,
+  `DynamicIsland`, `Onboarding`, `SortableList`, and `Timer` from
+  [Cult UI](https://github.com/nolly-studio/cult-ui) (MIT, Copyright
+  Jordan-Gilliam, whose sole surviving repository is
+  `nolly-studio/cult-ui`) — are adapted directly from those projects'
+  real upstream source, with each license verified by reading the
+  project's LICENSE file and each file's header comment citing the exact
+  upstream URL fetched (see "Vendored components" above).
 
-This project is not affiliated with or endorsed by shadcn, Meta, or Magic UI.
+This project is not affiliated with or endorsed by shadcn, Meta, Magic UI,
+Origin UI, Velora UI, Cult UI, Kibo UI, Dice UI, EditorCN, Flagcn, or
+Coss UI.
 
 ## License
 
