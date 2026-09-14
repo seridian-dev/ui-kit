@@ -1,5 +1,14 @@
 # @bytecats/ui-kit
 
+> **⚠️ DEPRECATED — DO NOT USE.**
+> This package was never published to npm and is no longer maintained.
+> Use the official successor: **[`@seridian/ui-kit`](https://www.npmjs.com/package/@seridian/ui-kit)**
+> ([source](https://github.com/seridian-dev/ui-kit)).
+>
+> ```sh
+> bun add @seridian/ui-kit
+> ```
+
 A shared React component library for bytecats' small products — one kit,
 many repos, instead of re-solving buttons and dialogs in every new app.
 
