@@ -29,22 +29,16 @@ components and interaction model; Astryx supplies the look.
 
 ## Install
 
-This repo is **private**, and not published to npm — so two things follow:
+This repo is **public**, but not published to npm — install it directly
+from GitHub:
 
-1. Use the `git+ssh` form, not the `github:` shorthand. `bun add github:...`
-   resolves through GitHub's public tarball API and 404s on a private repo
-   (verified — it fails outright). `git+ssh` clones over SSH instead:
+```bash
+bun add github:seridian-dev/ui-kit
+```
 
-   ```bash
-   bun add "git+ssh://git@github.com/4cecoder/ui-kit.git"
-   ```
-
-2. Whatever machine runs this needs read access to the repo. Locally that
-   means an SSH key added to the `4cecoder` GitHub account (`ssh -T
-   git@github.com` should print a success message). In CI/CD (GitHub
-   Actions, Netlify, etc.) that means a deploy key or a fine-grained PAT
-   with read access to this repo, configured as a build secret — there's no
-   SSH agent to fall back on there.
+No SSH keys, deploy keys, or tokens are needed — the repo is public, so
+local installs and CI/CD (GitHub Actions, Netlify, etc.) work with plain
+HTTPS out of the box.
 
 `dist/` is committed to this repo specifically so this works: a git-based
 install doesn't run a build step, and bun blocks the `prepare` lifecycle

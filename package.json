@@ -66,11 +66,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4cecoder/ui-kit.git"
+    "url": "https://github.com/seridian-dev/ui-kit"
   },
-  "homepage": "https://github.com/4cecoder/ui-kit#readme",
+  "homepage": "https://github.com/seridian-dev/ui-kit#readme",
   "bugs": {
-    "url": "https://github.com/4cecoder/ui-kit/issues"
+    "url": "https://github.com/seridian-dev/ui-kit/issues"
   },
   "keywords": [
     "react",
