@@ -1,6 +1,6 @@
 {
   "name": "@seridian/ui-kit",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Seridian shared React component library — shadcn/ui primitives themed with Meta Astryx's verified design tokens, plus a curated set of Magic UI animated components. One kit, many Seridian products.",
   "license": "MIT",
   "publishConfig": {
@@ -81,7 +81,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/seridian-dev/ui-kit"
+    "url": "git+https://github.com/seridian-dev/ui-kit.git"
   },
   "homepage": "https://github.com/seridian-dev/ui-kit#readme",
   "bugs": {
