@@ -36,16 +36,25 @@ components and interaction model; Astryx supplies the look.
 
 ## Install
 
-This repo is **public**, but not published to npm — install it directly
-from GitHub:
+Install from npm:
+
+```bash
+bun add @seridian/ui-kit
+# or
+npm install @seridian/ui-kit
+pnpm add @seridian/ui-kit
+yarn add @seridian/ui-kit
+```
+
+Or install directly from the public GitHub repository:
 
 ```bash
 bun add github:seridian-dev/ui-kit
 ```
 
-No SSH keys, deploy keys, or tokens are needed — the repo is public, so
-local installs and CI/CD (GitHub Actions, Netlify, etc.) work with plain
-HTTPS out of the box.
+No SSH keys, deploy keys, or tokens are needed — both npm and this repo
+are public, so local installs and CI/CD (GitHub Actions, Netlify, Vercel,
+etc.) work seamlessly out of the box.
 
 `dist/` is committed to this repo specifically so this works: a git-based
 install doesn't run a build step, and bun blocks the `prepare` lifecycle
@@ -187,7 +196,7 @@ for `Confetti`, `canvas-confetti`. On the shadcn side, `Drawer` pulls in
 Vaul and `InputOTP` pulls in `input-otp` — both the shadcn registry's own
 official dependency choices. All of these are real runtime dependencies of
 this kit. The clean-room builds (see below) bring a few more — Tiptap,
-`qrcode`, `react-colorful`, and `flag-icons` — each with its license and
+`qrcode`, and `react-colorful` — each with its license and
 reasoning described under "Clean-room builds". The vendored components
 (see below) bring two more, both tiny: `react-use-measure` and
 `@radix-ui/react-use-controllable-state` — used by `SortableList`,
@@ -218,10 +227,10 @@ standalone, permissively licensed library:
   [`qrcode`](https://github.com/soldair/node-qrcode) package (MIT).
 - `ColorPicker` gets its color math from
   [react-colorful](https://github.com/omgovich/react-colorful) (MIT).
-- `Flag` wraps the [`flag-icons`](https://flagicons.lipis.dev) CSS package
-  (MIT; flag artwork by Panayiotis Lipiridis), bundled locally into
-  `styles.css` — no runtime CDN requests, unlike Flagcn's approach of
-  pulling flag assets from its CDN at render time.
+- `Flag` renders clean ISO 3166-1 alpha-2 country flags using vector
+  assets sourced from [`flag-icons`](https://flagicons.lipis.dev)
+  (MIT; flag artwork by Panayiotis Lipiridis) loaded on demand — no broken
+  relative path dependencies or bundler crashes in Next.js/Turbopack.
 
 Which clean-room component took its behavioral cue from where:
 
