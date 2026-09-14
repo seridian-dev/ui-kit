@@ -33,6 +33,7 @@
     "build:css": "bunx @tailwindcss/cli -i ./src/styles/globals.css -o ./dist/styles.css --minify",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
+    "test": "bun test",
     "prepare": "bun run build"
   },
   "peerDependencies": {
@@ -50,7 +51,6 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.4.0",
-    "flag-icons": "^7.5.0",
     "input-otp": "^1.5.0",
     "lucide-react": "^1.25.0",
     "motion": "^12.42.2",

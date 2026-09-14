@@ -956,7 +956,7 @@ interface FlagProps extends Omit<React$1.ComponentProps<"span">, "role"> {
     /** Add `overflow-hidden rounded-sm` for slightly rounded corners. */
     rounded?: boolean;
 }
-declare function Flag({ country, ratio, decorative, alt, rounded, className, ...props }: FlagProps): React$1.JSX.Element;
+declare function Flag({ country, ratio, decorative, alt, rounded, className, style, ...props }: FlagProps): React$1.JSX.Element;
 
 interface IPhoneMockupProps extends React$1.HTMLAttributes<HTMLDivElement> {
     children: React$1.ReactNode;

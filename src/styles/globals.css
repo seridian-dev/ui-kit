@@ -35,8 +35,6 @@
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 @import "tw-animate-css";
-/* Flag component support (flag-icons, MIT) */
-@import "flag-icons/css/flag-icons.min.css";
 
 /* ---------------------------------------------------------------------------
  * Tailwind theme mapping

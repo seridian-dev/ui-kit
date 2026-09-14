@@ -41,14 +41,16 @@ function Flag({
   alt,
   rounded = false,
   className,
+  style,
   ...props
 }: FlagProps) {
   const code = country.trim().toLowerCase()
+  const isValidCode = /^[a-z]{2}$/.test(code)
 
   if (
     process.env.NODE_ENV !== "production" &&
     !devWarnedInvalidCode &&
-    !/^[a-z]{2}$/.test(code)
+    !isValidCode
   ) {
     devWarnedInvalidCode = true
     console.warn(
@@ -56,18 +58,23 @@ function Flag({
     )
   }
 
+  const src = `https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/${ratio}/${code}.svg`
+
   return (
     <span
       role={decorative ? undefined : "img"}
       aria-hidden={decorative || undefined}
       aria-label={decorative ? undefined : (alt ?? `${code.toUpperCase()} flag`)}
       className={cn(
-        "fi",
-        `fi-${code}`,
-        ratio === "1x1" && "fis",
+        "inline-block bg-contain bg-center bg-no-repeat align-middle leading-none",
+        ratio === "4x3" ? "aspect-[4/3] w-[1.333em]" : "aspect-square w-[1em]",
         rounded && "overflow-hidden rounded-sm",
         className
       )}
+      style={{
+        backgroundImage: isValidCode ? `url("${src}")` : undefined,
+        ...style,
+      }}
       {...props}
     />
   )
