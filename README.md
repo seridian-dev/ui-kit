@@ -1,3 +1,5 @@
+![Seridian UI — The Modern UI Toolkit, with Seri the Cosmic Cyber-Kitten](./assets/banner.jpg)
+
 # @seridian/ui-kit
 
 A shared React component library for Seridian's small products — one kit,
