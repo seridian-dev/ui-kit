@@ -201,7 +201,7 @@ function ComboboxTrigger({
         data-slot="combobox-trigger"
         data-placeholder={isEmpty || undefined}
         className={cn(
-          "min-h-9 w-full justify-between px-3 font-normal data-placeholder:text-muted-foreground",
+          "min-h-11 w-full justify-between px-3 font-normal data-placeholder:text-muted-foreground",
           className
         )}
         {...props}
@@ -216,7 +216,7 @@ function ComboboxTrigger({
               selected.map((itemValue) => {
                 const label = getLabel(itemValue)
                 return (
-                  <Badge key={itemValue} variant="secondary">
+                  <Badge key={itemValue} variant="secondary" className="h-7 text-sm">
                     {label}
                     <span
                       role="button"
@@ -267,7 +267,7 @@ function ComboboxContent({
     <PopoverContent
       data-slot="combobox-content"
       className={cn(
-        "w-(--radix-popover-trigger-width) min-w-(--radix-popover-trigger-width) p-0",
+        "w-(--radix-popover-trigger-width) min-w-(--radix-popover-trigger-width) max-w-[min(28rem,calc(100vw-2rem))] p-0",
         className
       )}
       {...props}
@@ -331,7 +331,7 @@ function ComboboxItem({
         onSelect?.(value)
         toggle(value)
       }}
-      className={cn("gap-0 data-[state=checked]:bg-muted/50", className)}
+      className={cn("min-h-10 gap-0 data-[state=checked]:bg-muted/50", className)}
       {...props}
     >
       <span

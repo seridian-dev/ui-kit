@@ -198,7 +198,7 @@ function NumberFieldGroup({
       data-size={size}
       data-disabled={disabled ? "" : undefined}
       className={cn(
-        "group/number-field flex h-8 w-full min-w-0 items-center gap-0.5 rounded-lg border border-input px-1 transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 data-disabled:bg-input/50 data-disabled:opacity-50 dark:bg-input/30 dark:data-disabled:bg-input/80 data-[size=sm]:h-7 data-[size=lg]:h-9",
+        "group/number-field flex h-11 w-full min-w-0 items-center gap-0.5 rounded-lg border border-input bg-background px-1 transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 data-disabled:bg-input/50 data-disabled:opacity-50 dark:bg-input/30 dark:data-disabled:bg-input/80 data-[size=sm]:h-9 data-[size=lg]:h-12",
         className
       )}
       {...props}
