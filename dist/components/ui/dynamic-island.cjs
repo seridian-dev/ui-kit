@@ -1,0 +1,442 @@
+"use client";
+"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/components/ui/dynamic-island.tsx
+var dynamic_island_exports = {};
+__export(dynamic_island_exports, {
+  BlobContext: () => BlobContext,
+  DynamicContainer: () => DynamicContainer,
+  DynamicDescription: () => DynamicDescription,
+  DynamicDiv: () => DynamicDiv,
+  DynamicIsland: () => DynamicIsland,
+  DynamicIslandProvider: () => DynamicIslandProvider,
+  DynamicIslandSizePresets: () => DynamicIslandSizePresets,
+  DynamicTitle: () => DynamicTitle,
+  SIZE_PRESETS: () => SIZE_PRESETS,
+  damping: () => damping,
+  stiffness: () => stiffness,
+  useDynamicIslandSize: () => useDynamicIslandSize,
+  useScheduledAnimations: () => useScheduledAnimations
+});
+module.exports = __toCommonJS(dynamic_island_exports);
+var import_react = require("react");
+var import_react2 = require("motion/react");
+var import_jsx_runtime = require("react/jsx-runtime");
+var stiffness = 400;
+var damping = 30;
+var MIN_WIDTH = 691;
+var MAX_HEIGHT_MOBILE_ULTRA = 400;
+var MAX_HEIGHT_MOBILE_MASSIVE = 700;
+var min = (a, b) => a < b ? a : b;
+var SIZE_PRESETS = {
+  RESET: "reset",
+  EMPTY: "empty",
+  DEFAULT: "default",
+  COMPACT: "compact",
+  COMPACT_LONG: "compactLong",
+  LARGE: "large",
+  LONG: "long",
+  MINIMAL_LEADING: "minimalLeading",
+  MINIMAL_TRAILING: "minimalTrailing",
+  COMPACT_MEDIUM: "compactMedium",
+  MEDIUM: "medium",
+  TALL: "tall",
+  ULTRA: "ultra",
+  MASSIVE: "massive"
+};
+var DynamicIslandSizePresets = {
+  [SIZE_PRESETS.RESET]: {
+    width: 150,
+    aspectRatio: 1,
+    borderRadius: 20
+  },
+  [SIZE_PRESETS.EMPTY]: {
+    width: 0,
+    aspectRatio: 0,
+    borderRadius: 0
+  },
+  [SIZE_PRESETS.DEFAULT]: {
+    width: 150,
+    aspectRatio: 44 / 150,
+    borderRadius: 46
+  },
+  [SIZE_PRESETS.MINIMAL_LEADING]: {
+    width: 52.33,
+    aspectRatio: 44 / 52.33,
+    borderRadius: 22
+  },
+  [SIZE_PRESETS.MINIMAL_TRAILING]: {
+    width: 52.33,
+    aspectRatio: 44 / 52.33,
+    borderRadius: 22
+  },
+  [SIZE_PRESETS.COMPACT]: {
+    width: 235,
+    aspectRatio: 44 / 235,
+    borderRadius: 46
+  },
+  [SIZE_PRESETS.COMPACT_LONG]: {
+    width: 300,
+    aspectRatio: 44 / 235,
+    borderRadius: 46
+  },
+  [SIZE_PRESETS.COMPACT_MEDIUM]: {
+    width: 351,
+    aspectRatio: 64 / 371,
+    borderRadius: 44
+  },
+  [SIZE_PRESETS.LONG]: {
+    width: 371,
+    aspectRatio: 84 / 371,
+    borderRadius: 42
+  },
+  [SIZE_PRESETS.MEDIUM]: {
+    width: 371,
+    aspectRatio: 210 / 371,
+    borderRadius: 22
+  },
+  [SIZE_PRESETS.LARGE]: {
+    width: 371,
+    aspectRatio: 84 / 371,
+    borderRadius: 42
+  },
+  [SIZE_PRESETS.TALL]: {
+    width: 371,
+    aspectRatio: 210 / 371,
+    borderRadius: 42
+  },
+  [SIZE_PRESETS.ULTRA]: {
+    width: 630,
+    aspectRatio: 630 / 800,
+    borderRadius: 42
+  },
+  [SIZE_PRESETS.MASSIVE]: {
+    width: 891,
+    height: 1900,
+    aspectRatio: 891 / 891,
+    borderRadius: 42
+  }
+};
+var BlobContext = (0, import_react.createContext)(void 0);
+var blobReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_SIZE":
+      return {
+        ...state,
+        size: action.newSize,
+        previousSize: state.size,
+        isAnimating: false
+        // Only set isAnimating to true if there are more steps
+      };
+    case "SCHEDULE_ANIMATION":
+      return {
+        ...state,
+        animationQueue: action.animationSteps,
+        isAnimating: action.animationSteps.length > 0
+      };
+    case "INITIALIZE":
+      return {
+        ...state,
+        size: action.firstState,
+        previousSize: SIZE_PRESETS.EMPTY,
+        isAnimating: false
+      };
+    case "ANIMATION_END":
+      return {
+        ...state,
+        isAnimating: false
+      };
+    default:
+      return state;
+  }
+};
+var DynamicIslandProvider = ({
+  children,
+  initialSize = SIZE_PRESETS.DEFAULT,
+  initialAnimation = []
+}) => {
+  const initialState = {
+    size: initialSize,
+    previousSize: SIZE_PRESETS.EMPTY,
+    animationQueue: initialAnimation,
+    isAnimating: initialAnimation.length > 0
+  };
+  const [state, dispatch] = (0, import_react.useReducer)(blobReducer, initialState);
+  (0, import_react.useEffect)(() => {
+    const processQueue = async () => {
+      for (const step of state.animationQueue) {
+        await new Promise((resolve) => setTimeout(resolve, step.delay));
+        dispatch({ type: "SET_SIZE", newSize: step.size });
+      }
+      dispatch({ type: "ANIMATION_END" });
+    };
+    if (state.animationQueue.length > 0) {
+      processQueue();
+    }
+  }, [state.animationQueue]);
+  const setSize = (0, import_react.useCallback)(
+    (newSize) => {
+      if (state.previousSize !== newSize && newSize !== state.size) {
+        dispatch({ type: "SET_SIZE", newSize });
+      }
+    },
+    [state.previousSize, state.size, dispatch]
+  );
+  const scheduleAnimation = (0, import_react.useCallback)(
+    (animationSteps) => {
+      dispatch({ type: "SCHEDULE_ANIMATION", animationSteps });
+    },
+    [dispatch]
+  );
+  const contextValue = {
+    state,
+    dispatch,
+    setSize,
+    scheduleAnimation,
+    presets: DynamicIslandSizePresets
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlobContext.Provider, { value: contextValue, children });
+};
+var useDynamicIslandSize = () => {
+  const context = (0, import_react.useContext)(BlobContext);
+  if (!context) {
+    throw new Error(
+      "useDynamicIslandSize must be used within a DynamicIslandProvider"
+    );
+  }
+  return context;
+};
+var useScheduledAnimations = (animations) => {
+  const { scheduleAnimation } = useDynamicIslandSize();
+  const animationsRef = (0, import_react.useRef)(animations);
+  (0, import_react.useEffect)(() => {
+    scheduleAnimation(animationsRef.current);
+  }, [scheduleAnimation]);
+};
+var DynamicIslandContainer = ({ children }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    "div",
+    {
+      className: "z-10 flex h-full w-full items-end justify-center bg-transparent",
+      "data-slot": "dynamic-island-container",
+      children
+    }
+  );
+};
+var DynamicIsland = ({
+  children,
+  id,
+  ...props
+}) => {
+  const willChange = (0, import_react2.useWillChange)();
+  const [screenSize, setScreenSize] = (0, import_react.useState)("desktop");
+  (0, import_react.useEffect)(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setScreenSize("mobile");
+      } else if (window.innerWidth <= 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("desktop");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DynamicIslandContainer, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    DynamicIslandContent,
+    {
+      id,
+      willChange,
+      screenSize,
+      ...props,
+      children
+    }
+  ) });
+};
+var calculateDimensions = (size, screenSize, currentSize) => {
+  const isMassiveOnMobile = size === "massive" && screenSize === "mobile";
+  const isUltraOnMobile = size === "ultra" && screenSize === "mobile";
+  if (isMassiveOnMobile) {
+    return { width: "350px", height: MAX_HEIGHT_MOBILE_MASSIVE };
+  }
+  if (isUltraOnMobile) {
+    return { width: "350px", height: MAX_HEIGHT_MOBILE_ULTRA };
+  }
+  const width = min(currentSize.width, MIN_WIDTH);
+  return { width: `${width}px`, height: currentSize.aspectRatio * width };
+};
+var DynamicIslandContent = ({
+  children,
+  id,
+  willChange,
+  screenSize,
+  ...props
+}) => {
+  const { state, presets } = useDynamicIslandSize();
+  const currentSize = presets[state.size];
+  const dimensions = calculateDimensions(state.size, screenSize, currentSize);
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_react2.motion.div,
+    {
+      id,
+      className: "mx-auto h-0 w-0 items-center justify-center border border-black/10 bg-black text-center text-black transition duration-300 ease-in-out focus-within:bg-neutral-900 hover:shadow-md dark:border dark:border-white/5 dark:focus-within:bg-black",
+      "data-slot": "dynamic-island",
+      animate: {
+        width: dimensions.width,
+        height: dimensions.height,
+        borderRadius: currentSize.borderRadius,
+        transition: {
+          type: "spring",
+          stiffness,
+          damping
+        },
+        clipPath: `none`,
+        transitionEnd: {
+          clipPath: `url(#squircle-${state.size})`
+        }
+      },
+      style: { willChange },
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.AnimatePresence, { children })
+    }
+  );
+};
+var DynamicContainer = ({ className, children }) => {
+  const willChange = (0, import_react2.useWillChange)();
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const isSizeChanged = size !== previousSize;
+  const initialState = {
+    opacity: size === previousSize ? 1 : 0,
+    scale: size === previousSize ? 1 : 0.9,
+    y: size === previousSize ? 0 : 5
+  };
+  const animateState = {
+    opacity: 1,
+    scale: 1,
+    y: 0
+  };
+  const transition = {
+    type: "spring",
+    stiffness,
+    damping,
+    duration: isSizeChanged ? 0.5 : 0.8
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_react2.motion.div,
+    {
+      initial: initialState,
+      animate: animateState,
+      transition,
+      exit: { opacity: 0, filter: "blur(10px)", scale: 0.95, y: 20 },
+      style: { willChange },
+      className,
+      "data-slot": "dynamic-container",
+      children
+    }
+  );
+};
+var DynamicDiv = ({ className, children }) => {
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = (0, import_react2.useWillChange)();
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_react2.motion.div,
+    {
+      initial: {
+        opacity: size === previousSize ? 1 : 0,
+        scale: size === previousSize ? 1 : 0.9
+      },
+      animate: {
+        opacity: size === previousSize ? 0 : 1,
+        scale: size === previousSize ? 0.9 : 1,
+        transition: {
+          type: "spring",
+          stiffness,
+          damping
+        }
+      },
+      exit: { opacity: 0, filter: "blur(10px)", scale: 0 },
+      style: { willChange },
+      className,
+      "data-slot": "dynamic-div",
+      children
+    }
+  );
+};
+var DynamicTitle = ({ className, children }) => {
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = (0, import_react2.useWillChange)();
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_react2.motion.h3,
+    {
+      className,
+      initial: { opacity: 0, scale: 0 },
+      animate: {
+        opacity: size === previousSize ? 0 : 1,
+        scale: size === previousSize ? 0.9 : 1,
+        transition: { type: "spring", stiffness, damping }
+      },
+      style: { willChange },
+      "data-slot": "dynamic-title",
+      children
+    }
+  );
+};
+var DynamicDescription = ({ className, children }) => {
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = (0, import_react2.useWillChange)();
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    import_react2.motion.p,
+    {
+      className,
+      initial: { opacity: 0, scale: 0 },
+      animate: {
+        opacity: size === previousSize ? 0 : 1,
+        scale: size === previousSize ? 0.9 : 1,
+        transition: { type: "spring", stiffness, damping }
+      },
+      style: { willChange },
+      "data-slot": "dynamic-description",
+      children
+    }
+  );
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  BlobContext,
+  DynamicContainer,
+  DynamicDescription,
+  DynamicDiv,
+  DynamicIsland,
+  DynamicIslandProvider,
+  DynamicIslandSizePresets,
+  DynamicTitle,
+  SIZE_PRESETS,
+  damping,
+  stiffness,
+  useDynamicIslandSize,
+  useScheduledAnimations
+});
+//# sourceMappingURL=dynamic-island.cjs.map

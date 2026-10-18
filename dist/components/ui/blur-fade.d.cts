@@ -1,0 +1,26 @@
+import * as React from 'react';
+import { MotionProps, UseInViewOptions } from 'motion/react';
+
+type MarginType = UseInViewOptions["margin"];
+interface BlurFadeProps extends MotionProps {
+    children: React.ReactNode;
+    className?: string;
+    variant?: {
+        hidden: {
+            y: number;
+        };
+        visible: {
+            y: number;
+        };
+    };
+    duration?: number;
+    delay?: number;
+    offset?: number;
+    direction?: "up" | "down" | "left" | "right";
+    inView?: boolean;
+    inViewMargin?: MarginType;
+    blur?: string;
+}
+declare function BlurFade({ children, className, variant, duration, delay, offset, direction, inView, inViewMargin, blur, ...props }: BlurFadeProps): React.JSX.Element;
+
+export { BlurFade };

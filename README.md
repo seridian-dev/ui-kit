@@ -95,6 +95,26 @@ re-theme/purge against their own class usage — not the goal here.)
 
 See [`src/demo.tsx`](./src/demo.tsx) for a slightly larger example.
 
+### Per-component imports (0.6.0+)
+
+Every component is its own module, so importing from the package root only
+pulls in what you use (the root `index.js` is nothing but re-exports and the
+package declares no JS side effects). Each component also has its own
+subpath, named after its file in `src/components/ui/`:
+
+```tsx
+import { Button } from "@seridian/ui-kit/button";
+import { Dialog, DialogContent } from "@seridian/ui-kit/dialog";
+import { cn } from "@seridian/ui-kit/utils";
+```
+
+Modules that need the client keep their own `"use client"` directive, so
+Next.js App Router server components can import server-safe ones (Card,
+Badge, ...) without making the whole kit a client boundary. Subpaths need
+`moduleResolution` `bundler`, `node16` or `nodenext`. After adding a
+component file, run `bun run sync:exports` to regenerate `package.json`
+`exports` (the build fails if they are stale).
+
 ## Components included
 
 A curated general-purpose set — not shadcn's full catalog, not Astryx's
@@ -281,10 +301,15 @@ Velora's took that slot.
 
 ## Theming & dark mode
 
-Two verified Astryx themes ship today:
+Two themes ship today:
 
-- **`neutral`** (default) — restrained warm grays, minimal and quiet.
-- **`stone`** — warm stone and slate, earthy and understated.
+- **`neutral`** (default) — the Seridian identity (0.6.0+): warm paper and
+  ink surfaces, signal-lime accent, Space Grotesk / JetBrains Mono, matching
+  Seridian Auth. Every text token meets WCAG AA (4.5:1) on every surface in
+  both light and dark (enforced by `tests/theme-contrast.test.ts`). The kit
+  does not load fonts; load Space Grotesk / JetBrains Mono in your app or the
+  system fallbacks are used. (Before 0.6.0 this was Astryx Neutral.)
+- **`stone`** — Astryx Stone: warm stone and slate, earthy and understated.
 
 Switch themes with a single HTML attribute, no JS or rebuild required:
 

@@ -76,9 +76,12 @@ function RatingInput({
             <RadioGroupItem
               id={`${id}-${item.value}`}
               value={item.value}
+              aria-label={item.label}
               className="sr-only after:absolute after:inset-0"
             />
-            {item.icon}
+            {/* The label text is the radio's name; the emoji is decoration
+                (screen readers would otherwise announce "angry face"). */}
+            <span aria-hidden="true">{item.icon}</span>
           </label>
         ))}
       </RadioGroup>
