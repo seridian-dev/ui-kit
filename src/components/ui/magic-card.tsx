@@ -1,3 +1,5 @@
+"use client"
+
 // Adapted from Magic UI's Magic Card (MIT, github.com/magicuidesign/magicui),
 // verified against the real upstream source at
 // https://raw.githubusercontent.com/magicuidesign/magicui/main/apps/www/registry/magicui/magic-card.tsx

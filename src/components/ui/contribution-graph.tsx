@@ -1,3 +1,5 @@
+"use client"
+
 // Clean-room implementation for @seridian/ui-kit.
 // Functional design inspired by the publicly documented behavior of Kibo UI's
 // Contribution Graph (https://kibo-ui.com) — no upstream source code was viewed or copied.

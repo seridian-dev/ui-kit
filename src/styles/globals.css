@@ -12,12 +12,16 @@
  *   pulls in shadcn's own base Tailwind layer (custom variants like
  *   data-open/data-checked, keyframes, small utilities the generated
  *   src/components/ui/*.tsx files rely on).
- * - Color / radius / font-family / spacing VALUES: Meta's Astryx design
+ * - Default theme VALUES (0.6.0+): the Seridian Auth identity — see the
+ *   "Seridian theme — DEFAULT" block below. The `--astryx-*` variable names
+ *   are kept for compatibility.
+ * - Stone theme VALUES and the variable naming: Meta's Astryx design
  *   system (github.com/facebook/astryx, MIT, Meta Platforms Inc.), sourced
  *   from the real published `@astryxdesign/theme-neutral` and
  *   `@astryxdesign/theme-stone` npm packages — NOT the astryx React/StyleX
- *   runtime itself. Every raw `--astryx-*` value below was copied verbatim
- *   from the package's own generated `dist/theme.css`, obtained via:
+ *   runtime itself. The Stone values and the default theme's shadows were
+ *   copied verbatim from the packages' own generated `dist/theme.css`,
+ *   obtained via:
  *
  *     npm pack @astryxdesign/theme-neutral@0.1.7
  *     npm pack @astryxdesign/theme-stone@0.1.7
@@ -135,56 +139,70 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Astryx Neutral theme — DEFAULT
- * Source: @astryxdesign/theme-neutral@0.1.7 (MIT, Meta Platforms Inc.)
- *   "Restrained warm grays. Minimal and quiet, so the content stays the focus."
- * Verified via `npm pack @astryxdesign/theme-neutral@0.1.7`, reading the
- * package's own dist/theme.css `:scope { ... }` block directly (not docs).
- * Values are copied verbatim, including Astryx's `light-dark(light, dark)`
- * pairs, which is also how we get automatic dark mode below with zero JS.
+ * Seridian theme — DEFAULT (0.6.0)
+ *
+ * Values match the Seridian Auth identity (AUTH-62; seridian-auth
+ * src/app/globals.css + src/lib/hosted-theme.ts): warm paper / ink
+ * surfaces, signal-lime accent, Space Grotesk + JetBrains Mono. Variable
+ * NAMES are unchanged from the Astryx-based 0.5.x theme; only values moved.
+ * Shadows below are still Astryx Neutral's.
+ *
+ * Where Auth's raw values are not text-safe, the AA variant Auth itself uses
+ * is taken instead: light accent is Auth's --signal-hover (#566b12, the
+ * `light-contrast-cta` fill) rather than #8fae2f (2.25:1 on paper), and
+ * success / error / warning are darkened on paper. Every text token clears
+ * 4.5:1 on every background token in both themes, and border-emphasized
+ * (input borders) clears 3:1; tests/theme-contrast.test.ts enforces this.
+ *
+ * Dark mode still comes from `light-dark()` and the element's color-scheme,
+ * so it follows either the OS preference or an app that sets
+ * `color-scheme: dark` on a `.dark` root (as Auth does).
+ *
+ * The kit does not load fonts. Apps that want the brand faces load Space
+ * Grotesk / JetBrains Mono themselves; the stacks fall back to system fonts.
  * ------------------------------------------------------------------------- */
 :root,
 [data-ui-theme="neutral"] {
   color-scheme: light dark;
 
-  --astryx-font-family-body: Figtree, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --astryx-font-family-heading: Figtree, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --astryx-font-family-code: ui-monospace, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --astryx-font-family-body: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --astryx-font-family-heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --astryx-font-family-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
   --astryx-font-size-4xs: 0.375rem;
   --astryx-font-size-3xs: 0.4375rem;
   --astryx-font-size-2xs: 0.5rem;
 
-  --astryx-color-background-body: light-dark(#f1f1f1, #1b1b1b);
-  --astryx-color-background-surface: light-dark(#ffffff, #262626);
-  --astryx-color-background-card: light-dark(#ffffff, #1b1b1b);
-  --astryx-color-background-popover: light-dark(#ffffff, #1b1b1b);
-  --astryx-color-background-muted: light-dark(#f1f1f1, #1b1b1b);
+  --astryx-color-background-body: light-dark(#f3f1ed, #0b0b0f);
+  --astryx-color-background-surface: light-dark(#fbfaf7, #131318);
+  --astryx-color-background-card: light-dark(#ffffff, #1b1b22);
+  --astryx-color-background-popover: light-dark(#ffffff, #1b1b22);
+  --astryx-color-background-muted: light-dark(#e9e6df, #23232b);
 
-  --astryx-color-accent: light-dark(#262626, #ebebeb);
-  --astryx-color-accent-muted: light-dark(#f1f1f1, #262626);
-  --astryx-color-on-accent: light-dark(#ffffff, #171717);
+  --astryx-color-accent: light-dark(#566b12, #c8f04b);
+  --astryx-color-accent-muted: light-dark(#e9e6df, #23232b);
+  --astryx-color-on-accent: light-dark(#ffffff, #101014);
 
-  --astryx-color-text-primary: light-dark(#171717, #fafafa);
-  --astryx-color-text-secondary: light-dark(#737373, #a3a3a3);
-  --astryx-color-text-disabled: light-dark(#a3a3a3, #525252);
+  --astryx-color-text-primary: light-dark(#111116, #f4f4f6);
+  --astryx-color-text-secondary: light-dark(#5c5b63, #a1a1a9);
+  --astryx-color-text-disabled: light-dark(#9a978f, #5a5a64);
 
-  --astryx-color-success: light-dark(#007004, #9fe59b);
-  --astryx-color-on-success: light-dark(#ffffff, #171717);
-  --astryx-color-error: light-dark(#a50c25, #ffc6c1);
-  --astryx-color-on-error: light-dark(#ffffff, #171717);
-  --astryx-color-warning: light-dark(#745b00, #fdcf4f);
-  --astryx-color-on-warning: #171717;
+  --astryx-color-success: light-dark(#166c40, #6ee7a0);
+  --astryx-color-on-success: light-dark(#ffffff, #101014);
+  --astryx-color-error: light-dark(#b93a1a, #fb5b3d);
+  --astryx-color-on-error: light-dark(#ffffff, #101014);
+  --astryx-color-warning: light-dark(#8a5a06, #fdcf4f);
+  --astryx-color-on-warning: light-dark(#ffffff, #101014);
 
-  --astryx-color-border: light-dark(#ebebeb, #ffffff1a);
-  --astryx-color-border-emphasized: light-dark(#d4d4d4, #525252);
-  --astryx-color-skeleton: light-dark(#ebebeb, #525252);
+  --astryx-color-border: light-dark(#1111161f, #ffffff14);
+  --astryx-color-border-emphasized: light-dark(#8a877f, #6b6b75);
+  --astryx-color-skeleton: light-dark(#e4e1da, #2a2a33);
 
   --astryx-radius-none: 0.25rem;
   --astryx-radius-inner: 0.375rem;
-  --astryx-radius-element: 0.625rem;
+  --astryx-radius-element: 0.5rem;
   --astryx-radius-container: 0.75rem;
-  --astryx-radius-page: 1.75rem;
+  --astryx-radius-page: 1.5rem;
   --astryx-radius-full: 9999px;
 
   --astryx-shadow-low: 0 2px 4px light-dark(oklch(0 0 0 / 5%), oklch(0 0 0 / 25%)), 0 4px 8px light-dark(oklch(0 0 0 / 10%), oklch(0 0 0 / 40%)), inset 0 0 0 1px light-dark(transparent, oklch(1 0 0 / 8%));
